@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body style="paddin:0; margin:0">
+<img id="img" width ="300" height="300" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mMs+Q8AAe0BdYuOBbcAAAAASUVORK5CYII=">
+<script src="imgslicer.js"></script>
+<script>
+	$(function() {
+		$("#img").imgslicer({
+			"cols" : 9,
+			"rows" : 9
+		});
+
+		var middleX = 5;
+		var middleY = 5;
+		$("#imgWrapper-0 > .imgSlice").click(function() {
+			for(r=0; r<9; r++) {
+				for(c=0; c<9; c++) {
+					(function(i, j) {
+						var directionX = middleX - i;
+						var directionY = middleY - j;
+						var destinationX = -directionX * 50;
+						var destinationY = -directionY * 50;					
+						var slice = "#imgWrapper-0 > #imgSlice-" + (i+1) + "-" + (j+1);
+						$(slice).stop().animate({
+							top: destinationY,
+							left: destinationX,
+							opacity: 0
+						}, 50*i*j);
+					})(c, r);
+				}
+			}
+			
+
+			
+		});
+	});
+</script>
+</body>
+</html>
